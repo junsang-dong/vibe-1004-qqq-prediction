@@ -1,7 +1,7 @@
 // ETF 가격 예측 시스템
 class ETFPredictor {
     constructor() {
-        this.geminiApiKey = 'AIzaSyAeqCGu4pBP5NpPzqcvEGnbLc4Mf3Mvdsc';
+        this.geminiApiKey = '여러분의 Gemini API키를 여기에 입력하세요.';
         this.charts = {};
         this.currentData = null;
     }
