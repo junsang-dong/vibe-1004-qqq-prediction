@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETF 가격 예측 시스템</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 ETF 가격 예측 시스템</h1>
+            <p>TTM Squeeze Momentum & Stochastic RSI 기반 3개월 예측</p>
+        </header>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="etfSymbol">ETF 종목 코드:</label>
+                <input type="text" id="etfSymbol" placeholder="예: QQQ, SPY, VTI" value="QQQ">
+                <button id="predictBtn" onclick="predictETF()">예측 시작</button>
+            </div>
+            
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>데이터 분석 및 예측 중...</p>
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="current-status">
+                <h2>📊 현재 시장 상태</h2>
+                <div class="status-grid">
+                    <div class="status-card">
+                        <h3>현재가</h3>
+                        <span id="currentPrice">-</span>
+                    </div>
+                    <div class="status-card">
+                        <h3>SQZMOM</h3>
+                        <span id="sqzmom">-</span>
+                    </div>
+                    <div class="status-card">
+                        <h3>Stoch RSI</h3>
+                        <span id="stochRsi">-</span>
+                    </div>
+                    <div class="status-card">
+                        <h3>신호</h3>
+                        <span id="signal">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prediction-section">
+                <h2>🔮 3개월 예측 결과</h2>
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <h3 id="predictionTitle">예측 결과</h3>
+                        <div class="confidence-score">
+                            <span>신뢰도: </span>
+                            <span id="confidenceScore">-</span>
+                        </div>
+                    </div>
+                    <div class="prediction-content">
+                        <div class="price-targets">
+                            <div class="target optimistic">
+                                <h4>낙관적 시나리오</h4>
+                                <span id="optimisticPrice">-</span>
+                                <span id="optimisticChange">-</span>
+                            </div>
+                            <div class="target realistic">
+                                <h4>현실적 시나리오</h4>
+                                <span id="realisticPrice">-</span>
+                                <span id="realisticChange">-</span>
+                            </div>
+                            <div class="target pessimistic">
+                                <h4>비관적 시나리오</h4>
+                                <span id="pessimisticPrice">-</span>
+                                <span id="pessimisticChange">-</span>
+                            </div>
+                        </div>
+                        <div class="prediction-text" id="predictionText">
+                            <!-- Gemini API 예측 텍스트가 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <h2>📈 차트 분석</h2>
+                <div class="chart-container">
+                    <canvas id="priceChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="indicatorsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <h2>🔍 기술적 분석</h2>
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h3>TTM Squeeze Momentum</h3>
+                        <p id="sqzmomAnalysis">-</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>Stochastic RSI</h3>
+                        <p id="stochRsiAnalysis">-</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>매매 신호</h3>
+                        <p id="signalAnalysis">-</p>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>시장 동향</h3>
+                        <p id="marketTrend">-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="error-section" id="errorSection" style="display: none;">
+            <div class="error-card">
+                <h2>❌ 오류 발생</h2>
+                <p id="errorMessage">데이터를 불러오는 중 오류가 발생했습니다.</p>
+                <button onclick="hideError()">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
